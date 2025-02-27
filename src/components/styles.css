@@ -1,0 +1,13 @@
+.testimonialSwiper .swiper-pagination {
+  bottom: -15px; /* Adjust this value to move the dots lower */
+  text-align: center;
+}
+
+.testimonialSwiper .swiper-pagination-bullet {
+  background: #000; /* Customize the bullet color */
+  opacity: 1;
+}
+
+.testimonialSwiper .swiper-pagination-bullet-active {
+  background: #fff; /* Customize the active bullet color */
+}
