@@ -21,7 +21,7 @@ export const get_products = createAsyncThunk(
   "product/get_products",
   async (_, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const { data } = await api.get("/home/get-products");
+      const { data } = await api.get("/api/home/get-products");
 
       return fulfillWithValue(data);
     } catch (error) {
@@ -34,7 +34,7 @@ export const price_range_product = createAsyncThunk(
   "product/price_range_product",
   async (_, { fulfillWithValue }) => {
     try {
-      const { data } = await api.get("/home/price-range-latest-product");
+      const { data } = await api.get("/api/home/price-range-latest-product");
       return fulfillWithValue(data);
     } catch (error) {
       console.log(error.response);
@@ -61,7 +61,7 @@ export const query_products = createAsyncThunk(
 
       const queryString = params.toString(); // This will encode special characters properly
       //console.log("Generated query string:", queryString); // Debugging log
-      const { data } = await api.get(`/home/query-products?${queryString}`);
+      const { data } = await api.get(`/api/home/query-products?${queryString}`);
       return fulfillWithValue(data);
     } catch (error) {
       console.error(
@@ -84,7 +84,7 @@ export const get_product = createAsyncThunk(
     }
 
     try {
-      const { data } = await api.get(`/home/get-product/${slug}`);
+      const { data } = await api.get(`/api/home/get-product/${slug}`);
       console.log("Product data fetched:", data);
       return fulfillWithValue(data);
     } catch (error) {
@@ -100,7 +100,7 @@ export const customer_review = createAsyncThunk(
   "review/customer_review",
   async (info, { fulfillWithValue }) => {
     try {
-      const { data } = await api.post("/home/customer/submit-review", info);
+      const { data } = await api.post("/api/home/customer/submit-review", info);
       return fulfillWithValue(data);
     } catch (error) {}
   }
@@ -111,7 +111,7 @@ export const get_reviews = createAsyncThunk(
   async ({ productId, pageNumber }, { fulfillWithValue }) => {
     try {
       const { data } = await api.get(
-        `/home/customer/get-reviews/${productId}?pageNo=${pageNumber}`
+        `/api/home/customer/get-reviews/${productId}?pageNo=${pageNumber}`
       );
       console.log(data);
       return fulfillWithValue(data);
