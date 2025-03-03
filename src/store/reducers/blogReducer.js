@@ -6,7 +6,7 @@ export const get_blogcategory = createAsyncThunk(
   "blog/get_blogcategory",
   async (_, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const { data } = await api.get("/get-blogcategory");
+      const { data } = await api.get("/api/get-blogcategory");
       // console.log("Fetched categories API response:", data); // Log API response
       return fulfillWithValue(data);
     } catch (error) {
@@ -24,7 +24,7 @@ export const get_blogs = createAsyncThunk(
   "blog/get_blogs",
   async (_, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const { data } = await api.get("/get-blog");
+      const { data } = await api.get("/api/get-blog");
       // console.log("Fetched blogs:", data); // Debug response
       return fulfillWithValue(data);
     } catch (error) {
@@ -43,7 +43,7 @@ export const get_singleBlog = createAsyncThunk(
     }
 
     try {
-      const { data } = await api.get(`/get-singleblog/${slug}`);
+      const { data } = await api.get(`/api/get-singleblog/${slug}`);
       console.log("Blog data fetched:", data);
       return fulfillWithValue(data);
     } catch (error) {
