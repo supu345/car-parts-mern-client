@@ -18,6 +18,7 @@ import ChangePassword from "./components/dashboard/ChangePassword";
 import BlogPage from "./pages/BlogPage";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import SearchProducts from "./pages/SearchProducts";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products?" element={<CategoryShops />} />
+          <Route path="/products/search?" element={<SearchProducts />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/card" element={<Card />} />

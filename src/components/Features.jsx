@@ -8,7 +8,7 @@ const Features = () => {
   return (
     <div>
       <div className="px-6 flex flex-col md:flex-row gap-8">
-        <div className="w-1/4 flex flex-col items-center text-center">
+        <div className=" w-full md:w-1/4 flex flex-col items-center text-center">
           <img src={shopping} alt="image1" className="h-[70px] w-[70px]" />
           <p className="text-xl font-bold mt-2">Worldwide Delivery</p>
           <p className="mt-1">
@@ -16,7 +16,7 @@ const Features = () => {
             molestiae commodi libero earum explicabo.
           </p>
         </div>
-        <div className="w-1/4 flex flex-col items-center text-center">
+        <div className="w-full md:w-1/4  flex flex-col items-center text-center">
           <img src={atmCard} alt="image1" className="h-[70px] w-[70px]" />
           <p className="text-xl font-bold mt-2">Secure Shopping</p>
           <p className="mt-1">
@@ -24,7 +24,7 @@ const Features = () => {
             molestiae commodi libero earum explicabo.
           </p>
         </div>
-        <div className="w-1/4 flex flex-col items-center text-center">
+        <div className="w-full md:w-1/4  flex flex-col items-center text-center">
           <img src={freeReturn} alt="image1" className="h-[70px] w-[70px]" />
           <p className="text-xl font-bold mt-2">Free Returns</p>
           <p className="mt-1">
@@ -32,7 +32,7 @@ const Features = () => {
             molestiae commodi libero earum explicabo.
           </p>
         </div>
-        <div className="w-1/4 flex flex-col items-center text-center">
+        <div className="w-full md:w-1/4  flex flex-col items-center text-center">
           <img src={phoneCall} alt="image1" className="h-[70px] w-[70px]" />
           <p className="text-xl font-bold mt-2">24/7 Help Center</p>
           <p className="mt-1">
@@ -56,7 +56,7 @@ const Features = () => {
 
           {/* Text Content */}
           <div className="absolute inset-0 flex flex-col justify-center items-center text-center uppercase">
-            <p className="py-1 text-white text-xl font-bold">
+            <p className="py-1 text-white text-md font-bold">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere,
               pariatur!
             </p>

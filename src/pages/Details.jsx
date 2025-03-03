@@ -14,13 +14,13 @@ import Ratings from "../components/Ratings";
 import { AiFillHeart } from "react-icons/ai";
 import { FaFacebookF, FaLinkedin } from "react-icons/fa";
 import { AiFillGithub, AiOutlineTwitter } from "react-icons/ai";
-//import Reviews from "../components/Reviews";
+import Reviews from "../components/Reviews";
 import { get_product } from "../store/reducers/homeReducer";
-// import {
-//   add_to_card,
-//   messageClear,
-//   add_to_wishlist,
-// } from "../store/reducers/cardReducer";
+import {
+  add_to_card,
+  messageClear,
+  add_to_wishlist,
+} from "../store/reducers/cardReducer";
 import toast from "react-hot-toast";
 import Headers from "../components/Headers";
 
@@ -31,8 +31,8 @@ const Details = () => {
   const { product, relatedProducts, moreProducts } = useSelector(
     (state) => state.home
   );
-  // const { userInfo } = useSelector((state) => state.auth);
-  // const { errorMessage, successMessage } = useSelector((state) => state.card);
+  const { userInfo } = useSelector((state) => state.auth);
+  const { errorMessage, successMessage } = useSelector((state) => state.card);
 
   const [image, setImage] = useState("");
   const [state, setState] = useState("reviews");
@@ -84,51 +84,51 @@ const Details = () => {
     }
   };
 
-  // const add_card = () => {
-  //   if (userInfo) {
-  //     dispatch(
-  //       add_to_card({
-  //         userId: userInfo.id,
-  //         quantity,
-  //         productId: product._id,
-  //       })
-  //     );
-  //   } else {
-  //     navigate("/login");
-  //   }
-  // };
-  // const add_wishlist = () => {
-  //   if (userInfo) {
-  //     dispatch(
-  //       add_to_wishlist({
-  //         userId: userInfo.id,
-  //         productId: product._id,
-  //         name: product.name,
-  //         price: product.price,
-  //         image: product.images[0],
-  //         discount: product.discount,
-  //         rating: product.rating,
-  //         slug: product.slug,
-  //       })
-  //     );
-  //   } else {
-  //     navigate("/login");
-  //   }
-  // };
+  const add_card = () => {
+    if (userInfo) {
+      dispatch(
+        add_to_card({
+          userId: userInfo.id,
+          quantity,
+          productId: product._id,
+        })
+      );
+    } else {
+      navigate("/login");
+    }
+  };
+  const add_wishlist = () => {
+    if (userInfo) {
+      dispatch(
+        add_to_wishlist({
+          userId: userInfo.id,
+          productId: product._id,
+          name: product.name,
+          price: product.price,
+          image: product.images[0],
+          discount: product.discount,
+          rating: product.rating,
+          slug: product.slug,
+        })
+      );
+    } else {
+      navigate("/login");
+    }
+  };
 
   useEffect(() => {
     dispatch(get_product(slug));
   }, [slug]);
-  // useEffect(() => {
-  //   if (errorMessage) {
-  //     toast.error(errorMessage);
-  //     dispatch(messageClear());
-  //   }
-  //   if (successMessage) {
-  //     toast.success(successMessage);
-  //     dispatch(messageClear());
-  //   }
-  // }, [errorMessage, successMessage]);
+  useEffect(() => {
+    if (errorMessage) {
+      toast.error(errorMessage);
+      dispatch(messageClear());
+    }
+    if (successMessage) {
+      toast.success(successMessage);
+      dispatch(messageClear());
+    }
+  }, [errorMessage, successMessage]);
 
   const buy = () => {
     let price = 0;
@@ -151,7 +151,7 @@ const Details = () => {
         ],
       },
     ];
-    navigate("/shipping", {
+    navigate("/", {
       state: {
         products: obj,
         price: price * quantity,
@@ -189,7 +189,7 @@ const Details = () => {
       </div>
       <section>
         <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto pb-16">
-          <div className="grid grid-cols-2 md-lg:grid-cols-1 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <div className="p-5 border">
                 <img
@@ -265,7 +265,7 @@ const Details = () => {
                     </div>
                     <div>
                       <button
-                        //  onClick={add_card}
+                        onClick={add_card}
                         className="px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-purple-500/40 bg-purple-500 text-white"
                       >
                         Add To Card
@@ -277,7 +277,7 @@ const Details = () => {
                 )}
                 <div>
                   <div
-                    //onClick={add_wishlist}
+                    onClick={add_wishlist}
                     className="h-[50px] w-[50px] flex justify-center items-center cursor-pointer hover:shadow-lg hover:shadow-cyan-500/40 bg-cyan-500 text-white"
                   >
                     <AiFillHeart />
@@ -344,12 +344,12 @@ const Details = () => {
                 ) : (
                   ""
                 )}
-                <Link
+                {/* <Link
                   to={`/dashboard/chat/${product.sellerId}`}
                   className="px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-lime-500/40 bg-lime-500 text-white block"
                 >
                   Chat Seller
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
@@ -384,15 +384,15 @@ const Details = () => {
                   </button>
                 </div>
                 <div>
-                  {/* {state === "reviews" ? (
+                  {state === "reviews" ? (
                     <Reviews product={product} />
                   ) : (
                     <p className="py-5 text-slate-600">{product.description}</p>
-                  )} */}
+                  )}
                 </div>
               </div>
             </div>
-            <div className="w-[28%] md-lg:w-full">
+            {/* <div className="w-[28%] md-lg:w-full">
               <div className="pl-4 md-lg:pl-0">
                 <div className="px-3 py-2 text-slate-600 bg-slate-200">
                   <h2> From {product.shopName}</h2>
@@ -423,7 +423,7 @@ const Details = () => {
                   })}
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

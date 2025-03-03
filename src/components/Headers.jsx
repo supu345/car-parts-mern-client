@@ -64,6 +64,20 @@ const Headers = () => {
   useEffect(() => {
     dispatch(get_category());
   }, [dispatch]);
+
+  const search = () => {
+    // console.log(category);
+    // console.log(searchValue);
+    navigate(`/products/search?category=${category}&&value=${searchValue}`);
+  };
+
+  //   const redirect_card_page = () => {
+  //     if (userInfo) {
+  //       navigate(`/card`);
+  //     } else {
+  //       navigate(`/login`);
+  //     }
+  //   };
   return (
     <div>
       <nav className="bg-gray-200 text-black">
@@ -73,24 +87,27 @@ const Headers = () => {
             <Link to="/">
               <div className="flex flex-row items-center justify-center md:justify-start">
                 <img className="w-[100px] h-[70px]" src={logo} alt="logo" />
-                <p className="uppercase text-3xl font-bold text-red-700">
+                <p className="uppercase md:text-3xl sm:text-xl font-bold text-red-700">
                   Car-parts
                 </p>
               </div>
             </Link>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-6">
-              <Link to="/" className="hover:text-gray-300">
+            <div className="hidden md:flex space-x-6 font-bold text-gray-600">
+              <Link to="/" className="hover:text-green-600">
                 Home
               </Link>
-              <Link to="/shops" className="hover:text-gray-300">
+              <Link to="/shops" className="hover:text-green-600">
                 Shops
               </Link>
-              <Link to="/blogs" className="hover:text-gray-300">
+              <Link to="/blogs" className="hover:text-green-600">
                 Blogs
               </Link>
-              <Link to="/contact" className="hover:text-gray-300">
+              <Link to="/about" className="hover:text-green-600">
+                Abouts
+              </Link>
+              <Link to="/contact" className="hover:text-green-600">
                 Contact
               </Link>
             </div>
@@ -171,7 +188,7 @@ const Headers = () => {
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="md:hidden bg-blue-400 text-white p-4 space-y-4">
+            <div className="md:hidden h-[300px] bg-gray-200 text-black p-4 space-y-4">
               <Link
                 to="/"
                 className="block hover:bg-blue-600 px-3 py-2 rounded"
@@ -205,21 +222,21 @@ const Headers = () => {
         </div>
       </nav>
       {/* category */}
-      <div className="w-[85%] lg:w-[90%] mx-auto mt-2">
-        <div className="flex w-full flex-wrap md-lg:gap-8">
+      <div className="w-[85%] lg:w-[90%] mx-auto mt-2  ">
+        <div className="flex w-full flex-col md:flex-row gap-2">
           <div className="w-full md:w-3/12 mb-4">
             <div className="bg-white relative">
               <div
                 onClick={() => setCategoryShow(!categoryShow)}
-                className="h-[50px] bg-green-600 text-white flex justify-center md-lg:justify-between md-lg:px-6 items-center gap-3 font-bold text-md cursor-pointer"
+                className="h-[50px] bg-red-600 text-white flex justify-center md:justify-between md:px-6 items-center gap-3 font-bold text-md cursor-pointer"
               >
-                <div className="flex justify-center items-center gap-3">
+                <div className="flex justify-center items-center gap-1">
                   <span>
                     <FaList />
                   </span>
-                  <span>All Category</span>
+                  <span className="ml-3">All Category</span>
                 </div>
-                <span className="pt-1">
+                <span className=" pt-1">
                   <MdOutlineKeyboardArrowDown />
                 </span>
               </div>
@@ -253,11 +270,11 @@ const Headers = () => {
               </div>
             </div>
           </div>
-          <div className="w-9/12 pl-8 md-lg:pl-0 md-lg:w-full">
+          <div className="md:w-9/12 sm:w-full mb-6  ">
             <div className="flex flex-wrap w-full justify-between items-center md-lg:gap-6">
               <div className="w-full md:w-8/12 ">
                 <div className="flex border h-[50px] items-center relative gap-5">
-                  <div className="relative after:absolute after:h-[25px] after:w-[1px] after:bg-[#afafaf] after:-right-[15px] md:hidden">
+                  <div className="relative after:absolute after:h-[25px] after:w-[1px] after:bg-[#afafaf] after:-right-[15px] ">
                     <select
                       onChange={(e) => setCategory(e.target.value)}
                       className="w-[150px] text-slate-600 font-semibold bg-transparent px-2 h-full outline-0 border-none"
@@ -273,22 +290,20 @@ const Headers = () => {
                     </select>
                   </div>
                   <input
-                    className="w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full"
-                    // onChange={(e) => setSearchValue(e.target.value)}
+                    className="w-full bg-transparent text-slate-500 outline-0  h-full placeholder:text-slate-400 sm:placeholder:text-slate-500"
+                    onChange={(e) => setSearchValue(e.target.value)}
                     type="text"
-                    name=""
-                    id=""
-                    placeholder="what do you need"
+                    placeholder="What do you need?"
                   />
                   <button
-                    //onClick={search}
-                    className="bg-green-600 right-0 absolute px-8 h-full font-semibold uppercase text-white"
+                    onClick={search}
+                    className="bg-red-600 right-0 absolute px-8 h-full font-semibold uppercase text-white"
                   >
                     Search
                   </button>
                 </div>
               </div>
-              <div className=" sm:w-4/12 md:block ">
+              <div className="sm:w-full md:w-4/12 md:block ">
                 <div className="w-full flex justify-end md-lg:justify-start gap-3 items-center ">
                   <div className="w-[48px] h-[48px] rounded-full flex bg-[#f5f5f5] justify-center items-center">
                     <span>
@@ -299,7 +314,7 @@ const Headers = () => {
                     <h2 className="text-md font-medium text-slate-700">
                       +8803242343243
                     </h2>
-                    <span className="text-sm">support 33/45 time</span>
+                    <span className="text-sm  ">support 33/45 time</span>
                   </div>
                 </div>
               </div>

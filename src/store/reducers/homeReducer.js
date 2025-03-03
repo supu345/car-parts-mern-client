@@ -49,8 +49,7 @@ export const query_products = createAsyncThunk(
       // Dynamically build query string using URLSearchParams
       const params = new URLSearchParams();
 
-      if (query.category)
-        params.append("category", encodeURIComponent(query.category));
+      if (query.category) params.append("category", query.category); // Use `query.category` instead of `req.query.category`
       if (query.rating) params.append("rating", query.rating);
       if (query.low !== undefined && query.low !== null)
         params.append("lowPrice", query.low);
@@ -61,8 +60,7 @@ export const query_products = createAsyncThunk(
       if (query.searchValue) params.append("searchValue", query.searchValue);
 
       const queryString = params.toString(); // This will encode special characters properly
-      console.log("Generated query string:", queryString);
-
+      //console.log("Generated query string:", queryString); // Debugging log
       const { data } = await api.get(`/home/query-products?${queryString}`);
       return fulfillWithValue(data);
     } catch (error) {
@@ -168,7 +166,7 @@ export const homeReducer = createSlice({
         state.error = payload || "Failed to fetch categories.";
       })
       .addCase(get_products.fulfilled, (state, { payload }) => {
-        console.log("Fetched products:", payload); // Log the fetched data
+        // console.log("Fetched products:", payload); // Log the fetched data
         state.status = "succeeded";
         state.products = payload.products; // Ensure payload.products is an array
         state.latest_product = payload.latest_product;

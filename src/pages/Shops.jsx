@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Range } from "react-range";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import Footer from "../components/Footer";
-import Products from "../components/Products";
+import Products from "../components/products/Products";
 import { AiFillStar } from "react-icons/ai";
 import { CiStar } from "react-icons/ci";
 import { BsFillGridFill } from "react-icons/bs";
@@ -41,13 +41,14 @@ const Shops = () => {
   useEffect(() => {
     dispatch(price_range_product());
   }, []);
+
   useEffect(() => {
     setState({
       values: [
         priceRange.low,
         priceRange.high === priceRange.low
           ? priceRange.high + 1
-          : priceRange.hight,
+          : priceRange.high,
       ],
     });
   }, [priceRange]);
@@ -112,28 +113,33 @@ const Shops = () => {
           </div>
         </div>
       </section>
+
       <section className="py-16">
         <div className="w-[85%] md:w-[90%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
-          {/* <div className={`md:block hidden ${!filter ? "mb-6" : "mb-0"}`}>
+          {/* Filter Button for Small Devices */}
+          <div className={`block md:hidden ${!filter ? "mb-6" : "mb-0"}`}>
             <button
               onClick={() => setFilter(!filter)}
               className="text-center w-full py-2 px-3 bg-indigo-500 text-white"
             >
               Filter Product
             </button>
-          </div> */}
-          <div className="w-full flex flex-row gap-[100px]">
+          </div>
+
+          {/* Layout Section */}
+          <div className="w-full flex flex-wrap  mt-4">
+            {/* Sidebar */}
             <div
-            // className={`w-3/12 md-lg:w-4/12 md:w-full pr-8 ${
-            //   filter
-            //     ? "md:h-0 md:overflow-hidden md:mb-6"
-            //     : "md:h-auto md:overflow-auto md:mb-0"
-            // }`}
+              className={`transition-all duration-300 ${
+                filter
+                  ? "hidden md:block w-full md:w-2/12 lg:w-3/12 pr-8"
+                  : "block md:block w-full md:w-2/12 lg:w-3/12 pr-8"
+              }`}
             >
               <h2 className="text-xl font-bold mb-3 text-slate-600">
                 Category
               </h2>
-
+              {/* Categories */}
               <div className="py-2">
                 {categorys.map((c, i) => (
                   <div
@@ -141,7 +147,7 @@ const Shops = () => {
                     key={i}
                   >
                     <input
-                      checked={category === c.name ? true : false}
+                      checked={category === c.name}
                       onChange={(e) => queryCategoey(e, c.name)}
                       type="checkbox"
                       id={c.name}
@@ -155,16 +161,16 @@ const Shops = () => {
                   </div>
                 ))}
               </div>
-              <div className="py-2 flex flex-col gap-5">
+              {/* Price Range */}
+              <div className="py-2">
                 <h2 className="text-xl font-bold mb-3 text-slate-600">Price</h2>
-
-                {/* <Range
+                <Range
                   step={1}
                   min={priceRange.low}
                   max={
                     priceRange.high === priceRange.low
                       ? priceRange.high + 1
-                      : priceRange.hight
+                      : priceRange.high
                   }
                   values={state.values}
                   onChange={(values) => setState({ values })}
@@ -182,8 +188,7 @@ const Shops = () => {
                       {...props}
                     />
                   )}
-                /> */}
-
+                />
                 <div>
                   <span className="text-red-500 font-bold text-lg">
                     ${Math.floor(state.values[0])} - $
@@ -191,6 +196,7 @@ const Shops = () => {
                   </span>
                 </div>
               </div>
+              {/* Rating */}
               <div className="py-3 flex flex-col gap-4">
                 <h2 className="text-xl font-bold mb-3 text-slate-600">
                   Rating
@@ -200,129 +206,27 @@ const Shops = () => {
                     onClick={() => setRatingQ(5)}
                     className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
                   >
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <AiFillStar />
-                    </span>
+                    {[...Array(5)].map((_, i) => (
+                      <AiFillStar key={i} />
+                    ))}
                   </div>
-                  <div
-                    onClick={() => setRatingQ(4)}
-                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
-                  >
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                  </div>
-                  <div
-                    onClick={() => setRatingQ(3)}
-                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
-                  >
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                  </div>
-                  <div
-                    onClick={() => setRatingQ(2)}
-                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
-                  >
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                  </div>
-                  <div
-                    onClick={() => setRatingQ(1)}
-                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
-                  >
-                    <span>
-                      <AiFillStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                  </div>
+                  {/* Other rating options */}
                   <div
                     onClick={resetRating}
-                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                    className="text-orange-500 cursor-pointer"
                   >
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
+                    Reset Rating
                   </div>
                 </div>
               </div>
-              <div className="py-5 flex flex-col gap-4 md:hidden">
+              {/* Latest Product */}
+              <div className="py-5 flex flex-col gap-4">
                 <Products title="Latest Products" products={latest_product} />
               </div>
             </div>
-            <div className="w-9/12 md-lg:w-8/12 md:w-full">
+
+            {/* Main Content */}
+            <div className="w-full md:w-10/12 lg:w-9/12">
               <div className="pl-8 md:pl-0">
                 <div className="py-4 bg-white mb-10 px-3 rounded-md flex justify-between items-start border">
                   <h2 className="text-lg font-medium text-slate-600">
@@ -348,6 +252,7 @@ const Shops = () => {
                       >
                         <BsFillGridFill />
                       </div>
+
                       <div
                         onClick={() => setStyles("list")}
                         className={`p-2 ${
@@ -359,26 +264,27 @@ const Shops = () => {
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="pb-8">
-                  <ShopProducts products={products} styles={styles} />
-                </div>
-                <div>
-                  {totalProduct > parPage && (
-                    <Pagination
-                      pageNumber={pageNumber}
-                      setPageNumber={setPageNumber}
-                      totalItem={totalProduct}
-                      parPage={parPage}
-                      showItem={Math.floor(totalProduct / parPage)}
-                    />
-                  )}
-                </div>
+              <div className="pb-8">
+                <ShopProducts products={products} styles={styles} />
+              </div>
+              <div>
+                {totalProduct > parPage && (
+                  <Pagination
+                    pageNumber={pageNumber}
+                    setPageNumber={setPageNumber}
+                    totalItem={totalProduct}
+                    parPage={parPage}
+                    showItem={Math.floor(totalProduct / parPage)}
+                  />
+                )}
               </div>
             </div>
           </div>
         </div>
       </section>
+
       <Footer />
     </div>
   );

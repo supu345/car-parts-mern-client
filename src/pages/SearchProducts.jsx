@@ -17,9 +17,10 @@ import {
 } from "../store/reducers/homeReducer";
 import { useDispatch, useSelector } from "react-redux";
 
-const CategoryShops = () => {
+const SearchProducts = () => {
   let [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category");
+  const searchValue = searchParams.get("value");
   const { products, totalProduct, latest_product, priceRange, parPage } =
     useSelector((state) => state.home);
 
@@ -36,14 +37,13 @@ const CategoryShops = () => {
   useEffect(() => {
     dispatch(price_range_product());
   }, []);
-
   useEffect(() => {
     setState({
       values: [
         priceRange.low,
         priceRange.high === priceRange.low
           ? priceRange.high + 1
-          : priceRange.high,
+          : priceRange.hight,
       ],
     });
   }, [priceRange]);
@@ -57,6 +57,7 @@ const CategoryShops = () => {
         rating,
         sortPrice,
         pageNumber,
+        searchValue,
       })
     );
   }, [
@@ -66,6 +67,7 @@ const CategoryShops = () => {
     rating,
     pageNumber,
     sortPrice,
+    searchValue,
   ]);
 
   const resetRating = () => {
@@ -81,16 +83,14 @@ const CategoryShops = () => {
       })
     );
   };
-
-  console.log("products category", products);
   return (
     <div>
       <Headers />
-      <section className='bg-[url("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
+      <section className='bg-[url("http://localhost:3000/images/banner/shop.gif")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
             <div className="flex flex-col justify-center gap-1 items-center h-full w-full text-white">
-              <h2 className="text-3xl font-bold">Car Parts</h2>
+              <h2 className="text-3xl font-bold">Shop.my</h2>
               <div className="flex justify-center items-center gap-2 text-2xl w-full">
                 <Link to="/">Home</Link>
                 <span className="pt-1">
@@ -103,8 +103,8 @@ const CategoryShops = () => {
         </div>
       </section>
       <section className="py-16">
-        <div className="w-[85%] md:w-[90%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
-          <div className={`block md:hidden ${!filter ? "mb-6" : "mb-0"}`}>
+        <div className="w-[85%] md:w-[90%%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
+          <div className={`md:block hidden ${!filter ? "mb-6" : "mb-0"}`}>
             <button
               onClick={() => setFilter(!filter)}
               className="text-center w-full py-2 px-3 bg-indigo-500 text-white"
@@ -112,13 +112,12 @@ const CategoryShops = () => {
               Filter Product
             </button>
           </div>
-          <div className="w-full flex flex-wrap mt-4">
-            {/* Left Section */}
+          <div className="w-full flex flex-wrap">
             <div
-              className={`transition-all duration-300 ${
+              className={`w-3/12 md-lg:w-4/12 md:w-full pr-8 ${
                 filter
-                  ? "hidden md:block w-full md:w-2/12 lg:w-2/12 pr-8"
-                  : "block md:block w-full md:w-2/12 lg:w-2/12 pr-8"
+                  ? "md:h-0 md:overflow-hidden md:mb-6"
+                  : "md:h-auto md:overflow-auto md:mb-0"
               }`}
             >
               <div className="py-2 flex flex-col gap-5">
@@ -131,7 +130,7 @@ const CategoryShops = () => {
                   max={
                     priceRange.high === priceRange.low
                       ? priceRange.high + 1
-                      : priceRange.high
+                      : priceRange.hight
                   }
                   values={state.values}
                   onChange={(values) => setState({ values })}
@@ -157,41 +156,138 @@ const CategoryShops = () => {
                   </span>
                 </div>
               </div>
-
-              {/* Rating Filter */}
               <div className="py-3 flex flex-col gap-4">
                 <h2 className="text-3xl font-bold mb-3 text-slate-600">
                   Rating
                 </h2>
-                {/* Ratings */}
                 <div className="flex flex-col gap-3">
-                  {[5, 4, 3, 2, 1].map((rating) => (
-                    <div
-                      key={rating}
-                      onClick={() => setRatingQ(rating)}
-                      className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
-                    >
-                      {Array(rating)
-                        .fill(<AiFillStar />)
-                        .concat(Array(5 - rating).fill(<CiStar />))}
-                    </div>
-                  ))}
+                  <div
+                    onClick={() => setRatingQ(5)}
+                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                  >
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <AiFillStar />
+                    </span>
+                  </div>
+                  <div
+                    onClick={() => setRatingQ(4)}
+                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                  >
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                  </div>
+                  <div
+                    onClick={() => setRatingQ(3)}
+                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                  >
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                  </div>
+                  <div
+                    onClick={() => setRatingQ(2)}
+                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                  >
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                  </div>
+                  <div
+                    onClick={() => setRatingQ(1)}
+                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                  >
+                    <span>
+                      <AiFillStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                  </div>
                   <div
                     onClick={resetRating}
                     className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
                   >
-                    {Array(5).fill(<CiStar />)}
+                    <span>
+                      <CiStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
+                    <span>
+                      <CiStar />
+                    </span>
                   </div>
                 </div>
               </div>
-              {/* Latest Products */}
               <div className="py-5 flex flex-col gap-4 md:hidden">
                 <Products title="Latest Products" products={latest_product} />
               </div>
             </div>
-
-            {/* Right Section */}
-            <div className="w-full md:w-10/12 lg:w-10/12">
+            <div className="w-9/12 md-lg:w-8/12 md:w-full">
               <div className="pl-8 md:pl-0">
                 <div className="py-4 bg-white mb-10 px-3 rounded-md flex justify-between items-start border">
                   <h2 className="text-lg font-medium text-slate-600">
@@ -201,6 +297,8 @@ const CategoryShops = () => {
                     <select
                       onChange={(e) => setSortPrice(e.target.value)}
                       className="p-1 border outline-0 text-slate-600 font-semibold"
+                      name=""
+                      id=""
                     >
                       <option value="">Sort By</option>
                       <option value="low-to-high">Low to High Price</option>
@@ -250,4 +348,4 @@ const CategoryShops = () => {
   );
 };
 
-export default CategoryShops;
+export default SearchProducts;

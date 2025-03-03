@@ -36,6 +36,29 @@ const Blog = () => {
 
   return (
     <div className="px-6 py-7">
+      <div className="py-12  mt-6">
+        <div className="relative h-[100px] w-full overflow-hidden rounded-md">
+          {/* Image */}
+          <img
+            src="https://images.pexels.com/photos/3593922/pexels-photo-3593922.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="image"
+            className="h-full w-full object-cover"
+          />
+
+          {/* Black Overlay */}
+          <div className="absolute inset-0 bg-black opacity-10"></div>
+
+          {/* Text Content */}
+          <div className="absolute inset-0 flex flex-col justify-center items-center text-center uppercase">
+            <p className="py-1 text-white text-md font-bold">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere,
+              pariatur!
+            </p>
+            <p className="py-1 text-2xl font-bold text-white">New Products</p>
+          </div>
+        </div>
+      </div>
+
       <div>
         <p className="text-2xl font-bold mb-6">Auto Care Tips & Advice</p>
       </div>
