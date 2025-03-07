@@ -28,6 +28,22 @@ export const customer_login = createAsyncThunk(
   }
 );
 
+export const customer_logout = createAsyncThunk(
+  "auth/customer_logout",
+  async (_, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      // Send the logout request to the API
+      const { data } = await api.get("/api/customer/logout");
+
+      // Clear localStorage token
+      localStorage.removeItem("customerToken");
+
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Logout failed");
+    }
+  }
+);
 const decodeToken = (token) => {
   try {
     if (token) {
@@ -89,6 +105,18 @@ export const authReducer = createSlice({
         state.successMessage = payload.message;
         state.loader = false;
         state.userInfo = userInfo;
+      })
+      .addCase(customer_logout.pending, (state) => {
+        state.loader = true;
+      })
+      .addCase(customer_logout.rejected, (state, { payload }) => {
+        state.errorMessage = payload.error || "Logout failed";
+        state.loader = false;
+      })
+      .addCase(customer_logout.fulfilled, (state, { payload }) => {
+        state.successMessage = payload.message;
+        state.loader = false;
+        state.userInfo = null;
       });
   },
 });

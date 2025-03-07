@@ -56,7 +56,7 @@ const Register = () => {
       <Headers />
       <div className="bg-slate-200 mt-4">
         <div className="w-full justify-center items-center p-10">
-          <div className="grid md:grid-cols-2 w-[60%] mx-auto bg-white rounded-md">
+          <div className="grid  grid-cols-1 md:grid-cols-2 md:w-[60%] sm:w-[100%] mx-auto bg-white rounded-md">
             <div className="px-8 py-8">
               <h2 className="text-center w-full text-xl text-slate-600 font-bold">
                 Register
@@ -102,7 +102,7 @@ const Register = () => {
                       required
                     />
                   </div>
-                  <button className="px-8 w-full py-2 bg-purple-500 shadow-lg hover:shadow-indigo-500/30 text-white rounded-md">
+                  <button className="px-8 w-full py-2 bg-blue-500 shadow-lg hover:shadow-indigo-500/30 text-white rounded-md">
                     Register
                   </button>
                 </form>
@@ -111,7 +111,7 @@ const Register = () => {
                   <span className="px-3 text-slate-600">or</span>
                   <div className="h-[1px] bg-slate-300 w-[95%]"></div>
                 </div>
-                <button className="px-8 w-full py-2 bg-indigo-500 shadow hover:shadow-indigo-500/30 text-white rounded-md flex justify-center items-center gap-2 mb-3">
+                {/* <button className="px-8 w-full py-2 bg-indigo-500 shadow hover:shadow-indigo-500/30 text-white rounded-md flex justify-center items-center gap-2 mb-3">
                   <span>
                     <FaFacebookF />
                   </span>
@@ -121,8 +121,8 @@ const Register = () => {
                   <span>
                     <AiOutlineGoogle />
                   </span>
-                  <span>Login with Facebook</span>
-                </button>
+                  <span>Login with Google</span>
+                </button> */}
               </div>
               <div className="text-center text-slate-600 pt-1">
                 <p>
