@@ -314,7 +314,7 @@ const Headers = () => {
                     <h2 className="text-md font-medium text-slate-700">
                       +8803242343243
                     </h2>
-                    <span className="text-sm  ">support 33/45 time</span>
+                    <span className="text-sm  ">support 24/7 </span>
                   </div>
                 </div>
               </div>
